@@ -6,12 +6,19 @@ import { TagList } from "../components/tag/TagList"
 import { AllPostsContainer } from "../components/posts/allPostsContainer"
 import { Authorized } from "./Authorized"
 import { ViewCurrentUserPost } from "../components/posts/ViewCurrentUserPost"
+
 import { PostDetails } from "../components/posts/postDetails"
+
+import { CategoryList } from "../components/category/CategoryList"
+
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
     <Routes>
       <Route path="/tags" element={<TagList />} />
+
+      <Route path="/categories" element={<CategoryList />} />
+
       <Route path="/login" element={<Login setToken={setToken} />}  />
       <Route path="/register" element={<Register setToken={setToken} />}  />
       <Route element={<Authorized token={token} />} />
