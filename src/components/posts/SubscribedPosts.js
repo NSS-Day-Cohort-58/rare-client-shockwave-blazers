@@ -6,7 +6,6 @@ import { getAllSubscriptions } from "../../managers/SubscriptionManager"
 export const SubscribedPosts = ({ token }) => {
 
     const [subscriptions, setSubscriptions] = useState()
-    const [posts, setPosts] = useState()
 
 
 
@@ -20,16 +19,25 @@ export const SubscribedPosts = ({ token }) => {
 
     }, [])
 
-    useEffect(() => {
 
-        getAllPosts().then((postsData) => setPosts(postsData))
-
-    }, [])
 
 
 
     return <>
-        
+        {subscriptions?.map(subscription => 
+            subscription.follower_id === parseInt(token)
+            ? <div className="container">
+            <div className="card">
+                <div className="card-title">
+                    {subscription.post.title}
+                </div>
+                <div className="card-body">
+                    {subscription.post.content}
+                </div>
+            </div>
+            </div>
+            : "hello"
+            )}
     </>
 }
 
