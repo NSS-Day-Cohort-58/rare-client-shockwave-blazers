@@ -34,7 +34,7 @@ const searchedPosts = allPosts.filter((post) => {
     return (
       <>
         {searchTermState === "" ? (
-          <section className="box allpostscontainer">
+          <section className="box">
             {allPosts.map((post) => (
             <AllPostsSingleView
             key={`post--${post.id}`}
@@ -49,7 +49,7 @@ const searchedPosts = allPosts.filter((post) => {
             ))}
           </section>
         ) : (
-          <section className="box allpostscontainer"> 
+          <section className="box"> 
             {filteredPosts.map((post) => (
             <AllPostsSingleView
             key={`post--${post.id}`}
@@ -72,10 +72,7 @@ const searchedPosts = allPosts.filter((post) => {
 return <>
 <main className="container is-primary">
   <div className="level">
-    <Link className="title is-5 level-item"
-        to={`/`}>
-        Title
-      </Link>
+    <div className="title is-5 level-item">Title</div>
     <div className="title is-5 level-item">Author</div>
     <div className="title is-5 level-item">Date</div>
     <div className="title is-5 level-item">Category</div>
