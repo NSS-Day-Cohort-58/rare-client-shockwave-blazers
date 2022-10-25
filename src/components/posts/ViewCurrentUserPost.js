@@ -51,36 +51,53 @@ export const ViewCurrentUserPost = ({token}) => {
     const renderListOfUserPosts = () => {
 
         return<>
+        <h1 className="title is-1 level-item">My Posts</h1>
         {
             posts?.map(post =>
                 post?.user_id === parseInt(token)
                 ? <div key={`post--${post.id}`}>
-                    <div className="card">
+                    <div className="level">
+                    <div className="columns level-item">
+                    <div className="card column is-three-quarters">
                     <div className="card-image">
                     <figure className="image is-4by3">
                         <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" />
                     </figure>
                     </div>
                     <div className="card-content">
-                    <div className="media">
+                        <div className="columns">
+                            <div className="column">
+                                <div className="media">
                         <div className="media-left">
                         <figure className="image is-48x48">
                             <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
                         </figure>
                         </div>
                         <div className="media-content">
+                            <div>
                         <p className="title is-4">{post.user?.first_name} {post.user?.last_name}</p>
-                        <p className="subtitle is-6">@{post.user?.first_name}{post.user?.last_name}</p>
+                            </div>
+                            <div>
+                        <p className="subtitle is-6">@{post.user.username}</p>
+                            </div>
                         </div>
                     </div>
+                            </div>
+                        <div className="column">
                     <div className="content">
-                        {post.content}
-                        <br></br>
-                        <time datetime>Publication Date: {post.publication_date}</time>
+                        <div className="title is-3">
+                        {post.title}
                         {deletePostButton(post.id)}
+                        </div>
+                        <time datetime>Publication Date: {post.publication_date}</time>
+
+                    </div>
+                        </div>
+                        </div>
                     </div>
                     </div>
-                    </div>
+                </div>
+                </div>
                 </div>
                 :""
             )
