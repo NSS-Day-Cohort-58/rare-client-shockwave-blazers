@@ -3,26 +3,22 @@ import { useParams } from "react-router-dom"
 import { getUserById } from "../../managers/UserManager"
 
 
-export const ViewUserDetails = ({token})=> {
-    const [users, setUsers]= useState()
-    const {userId} = useParams()
+export const ViewUserDetails = () => {
+    const [user, setUser] = useState({})
+    const { postUserId } = useParams()
 
-    useEffect (() => {
-        getUserById(userId).then((userData) => setUsers(userData))
-    }, [userId])
+    useEffect(() => {
+        getUserById(postUserId).then((userData) => setUser(userData))
+    }, [postUserId])
 
     return <>
-    {
-        users?.map (user =>
-            user.id === parseInt(token)
-            ?<div key={`user--${user.id}`}>
-            Name:{user.first_name} {user.last_name}
-            UserName: {user.username}
-            Creation Date: {user.created_on}
-            Bio: {user.bio}
+        {
+            <div key={`user--${user.id}`}>
+                Name:{user.first_name} {user.last_name}<br></br>
+                UserName: {user.username}<br></br>
+                Creation Date: {user.created_on}<br></br>
+                Bio: {user.bio}
             </div>
-            :""
-        )
-    }
+        }
     </>
 }
