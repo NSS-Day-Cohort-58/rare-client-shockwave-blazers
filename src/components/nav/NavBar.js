@@ -28,7 +28,7 @@ export const NavBar = ({ token, setToken }) => {
         </a>
       </div>
 
-      <div className="navbar-menu" ref={navbar}>=
+      <div className="navbar-menu" ref={navbar}>
         <div className="navbar-start">
           {
             token
