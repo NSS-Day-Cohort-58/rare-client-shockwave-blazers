@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { AllPostsSingleView } from "./allPostsSingleView";
 import { getAllPosts } from "../../managers/PostManager";
+import { Link } from "react-router-dom";
 
 
 // This component is responsible for rendering all posts. The user will have the ability to navigate to create a new post, as well as search posts by title.
@@ -43,11 +44,12 @@ const searchedPosts = allPosts.filter((post) => {
             authorLastName={post.user.last_name}
             category={post.category.label}
             tag={post.tag.label}
+            id= {post.id}
               />
             ))}
           </section>
         ) : (
-          <section className="box allpostscontainer">
+          <section className="box allpostscontainer"> 
             {filteredPosts.map((post) => (
             <AllPostsSingleView
             key={`post--${post.id}`}
@@ -57,7 +59,8 @@ const searchedPosts = allPosts.filter((post) => {
             authorLastName={post.user.last_name}
             category={post.category.label}
             tag={post.tag.label}
-              />
+            id= {post.id}
+            />
             ))}
           </section>
         )}
@@ -69,7 +72,10 @@ const searchedPosts = allPosts.filter((post) => {
 return <>
 <main className="container is-primary">
   <div className="level">
-    <div className="title is-5 level-item">Title</div>
+    <Link className="title is-5 level-item"
+        to={`/`}>
+        Title
+      </Link>
     <div className="title is-5 level-item">Author</div>
     <div className="title is-5 level-item">Date</div>
     <div className="title is-5 level-item">Category</div>

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useRef } from "react"
 import { useNavigate } from 'react-router-dom'
 import { addTag } from "../../managers/TagManager"
 import "./Tags.css"
@@ -10,30 +10,36 @@ export const TagForm = () => {
 
   const constructNewTag = () => {
 
-    
+
     addTag({
-        label: label.current.value,
-        })
-        .then(() => {navigate("/tags")})
-    }
+      label: label.current.value,
+    })
+      .then(() => { navigate("/tags") })
+  }
 
   return (
+
     <form className="tagForm">
-      <h2 className="tagForm__title">Create a new tag</h2>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="tagLabel">Tag label: </label>
-          <input type="text" id="tagLabel" ref={label} required autoFocus className="form-control" placeholder="Tag name" />
+      <h1 class="title is-3">Create a new tag</h1>
+      
+        <div className="field">
+          <label class="label is-medium" htmlFor="tagLabel">Tag label: </label>
+          <div className="control">
+            <input class="input is-medium" type="text" id="tagLabel" ref={label} required autoFocus placeholder="Tag name" />
+          </div>
         </div>
-      </fieldset>
-      <button type="submit"
+        
+      
+      <div className="control">
+      <button className="button" type="submit"
         onClick={evt => {
           evt.preventDefault()
           constructNewTag()
         }}
-        className="btn btn-primary">
+        >
         Save Tag
       </button>
+      </div>
     </form>
   )
 }
