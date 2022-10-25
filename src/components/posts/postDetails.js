@@ -30,7 +30,7 @@ export const PostDetails = () => {
       </div>
       <div class="media-content">
         <div>
-        <p class="title is-4">{post?.user?.first_name} | {post?.user?.last_name}</p>
+        <Link className="title is-4 color is-primary" to={`/userprofile/${post.user_id}`} >{post?.user?.first_name} | {post?.user?.last_name}</Link>
         </div>
         <div>
         <p class="subtitle is-6">@{post?.user?.username}</p>
@@ -40,15 +40,15 @@ export const PostDetails = () => {
         </div>
       </div>
     </div>
-    <div class="content">
-      {post.content}
-    </div>
   </div>
   <div className="column is-one-third">
     <div className="box">{post?.reaction?.emoji}</div>
 <button className="button is-primary">View Comments</button>
   </div>
   </div>
+   <div class="content">
+      {post.content}
+    </div>
 </div>
 </div>
 <div className="column is-one-fifth box">
@@ -59,6 +59,7 @@ export const PostDetails = () => {
     {post?.tag?.label}
     </div>
 </div>
+
     </section>
     
     </>
@@ -66,7 +67,7 @@ export const PostDetails = () => {
 
     return (
         <section>
-            <level>
+            <div>
             <h1 className= "title is-primary level-item">{post.title}</h1>
              <div className="level">
              <div className="columns level-item">
@@ -75,12 +76,7 @@ export const PostDetails = () => {
                 </div>
              </div>
              </div>
-            </level>
-            <Link to={`/userprofile/${post.user_id}`} >{post?.user?.first_name} | {post?.user?.last_name}</Link>  
-            <div> Title: {post.title}</div>
-            <div> Content: {post.content}</div>
-            <div> Category: {post.category?.label}</div>
-            <div>Publication Date: {post.publication_date}</div>
+            </div>
         </section>
     )
 }
