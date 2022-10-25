@@ -42,6 +42,7 @@ export const PostDetails = () => {
     </div>
   </div>
   <div className="column is-one-third">
+    <div className="title is-5 level-item">Reactions</div>
     <div className="box">{post?.reaction?.emoji}</div>
 <button className="button is-primary">View Comments</button>
   </div>
@@ -53,7 +54,14 @@ export const PostDetails = () => {
 </div>
 <div className="column is-one-fifth box">
     <div className="level">
-    <h3 className="title is-3 level-item">Tags</h3>
+    <h3 className="title is-5 level-item">Category</h3>
+    </div>
+    <div className="level-item">
+    <div>{post?.category?.label}</div>
+    </div>
+    <br></br>
+    <div className="level">
+    <h3 className="title is-5 level-item">Tags</h3>
     </div>
     <div className="level-item">
     {post?.tag?.label}
