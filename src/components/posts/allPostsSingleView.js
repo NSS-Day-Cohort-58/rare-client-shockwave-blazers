@@ -8,12 +8,22 @@ export const AllPostsSingleView = ({title, publicationDate, authorFirstName, aut
 return <>
 <section>
 
-<div className="level">
-    <Link to={`/posts/${id}`} >{title}</Link>     
-    <div className="">{authorFirstName} {authorLastName}</div>
-    <div className="">{publicationDate}</div>
-    <span className="tag is-link is-light">{category}</span>
-    <span className="tag is-dark" >{tag}</span>
+<div className="columns">
+    <div className="column level">
+    <Link className="level-item" to={`/posts/${id}`} >{title}</Link>
+    </div>
+    <div className="column level">
+<div className="level-item">{authorFirstName} {authorLastName}</div>
+    </div>
+    <div className="column level">
+<div className="level-item">{publicationDate}</div>
+    </div>
+    <div className="column level">
+<span className="level-item">{category}</span>
+    </div>
+    <div className="column level">
+<span className="level-item" >{tag}</span>
+    </div>
 </div>
 
 </section>
