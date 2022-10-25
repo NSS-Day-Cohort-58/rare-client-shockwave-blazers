@@ -7,10 +7,9 @@ import { AllPostsContainer } from "../components/posts/allPostsContainer"
 import { Authorized } from "./Authorized"
 import { ViewCurrentUserPost } from "../components/posts/ViewCurrentUserPost"
 import { PostForm } from "../components/posts/PostForm"
-
 import { PostDetails } from "../components/posts/postDetails"
-
 import { CategoryList } from "../components/category/CategoryList"
+import { ViewUserDetails } from "../components/posts/viewUserDetails"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
@@ -27,6 +26,7 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/allposts" element={<AllPostsContainer />} />
       <Route path="/myposts" element={<ViewCurrentUserPost token={token} />} />
       <Route path="/posts/:postId" element={<PostDetails />} />
+      <Route path="/userprofile/:postUserId" element={<ViewUserDetails/>} />
 
     </Routes>
   </>

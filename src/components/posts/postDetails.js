@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getPostById } from "../../managers/PostManager"
+import { Link } from "react-router-dom"
 
 export const PostDetails = () => {
     const [post, setPost] = useState ({})
@@ -11,7 +12,7 @@ export const PostDetails = () => {
 
     return (
         <section>
-            <h3>{post?.user?.first_name} | {post?.user?.last_name}</h3>
+            <Link to={`/userprofile/${post.user_id}`} >{post?.user?.first_name} | {post?.user?.last_name}</Link>  
             <div> Title: {post.title}</div>
             <div> Content: {post.content}</div>
             <div> Category: {post.category?.label}</div>
