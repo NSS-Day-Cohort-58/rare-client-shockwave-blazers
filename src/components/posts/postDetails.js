@@ -3,19 +3,80 @@ import { useParams } from "react-router-dom"
 import { getPostById } from "../../managers/PostManager"
 
 export const PostDetails = () => {
-    const [post, setPost] = useState ({})
+    const [post, setPost] = useState ([])
     const {postId} = useParams()
     useEffect(() => {
         getPostById(postId).then(postData => setPost(postData))
     }, [postId])
 
+    const displayPostDetailsCard = () => {
+    return <>
+    <section className="columns">
+    <div class="card column">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image"/>
+    </figure>
+  </div>
+  <div class="card-content">
+    <div className="columns">
+        <div className="column">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image"/>
+        </figure>
+      </div>
+      <div class="media-content">
+        <div>
+        <p class="title is-4">{post?.user?.first_name} | {post?.user?.last_name}</p>
+        </div>
+        <div>
+        <p class="subtitle is-6">@{post?.user?.username}</p>
+        </div>
+        <div>
+        <p class="subtitle is-6">{post.publication_date}</p>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      {post.content}
+    </div>
+  </div>
+  <div className="column is-one-third">
+    <div className="box">{post?.reaction?.emoji}</div>
+<button className="button is-primary">View Comments</button>
+  </div>
+  </div>
+</div>
+</div>
+<div className="column is-one-fifth box">
+    <div className="level">
+    <h3 className="title is-3 level-item">Tags</h3>
+    </div>
+    <div className="level-item">
+    {post?.tag?.label}
+    </div>
+</div>
+    </section>
+    
+    </>
+    }
+
     return (
         <section>
-            <h3>{post?.user?.first_name} | {post?.user?.last_name}</h3>
-            <div> Title: {post.title}</div>
-            <div> Content: {post.content}</div>
-            <div> Category: {post.category?.label}</div>
-            <div>Publication Date: {post.publication_date}</div>
+            <level>
+            <h1 className= "title is-primary level-item">{post.title}</h1>
+             <div className="level">
+             <div className="columns level-item">
+                <div className="column is-three-quarters">
+             {displayPostDetailsCard()}
+                </div>
+             </div>
+             </div>
+            </level>
         </section>
     )
 }
+
+/* <Link to={`/userprofile/${post.user_id}`} >{post?.user?.first_name} | {post?.user?.last_name}</Link> */
