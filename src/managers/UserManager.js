@@ -30,6 +30,6 @@ return fetch(`http://localhost:8088/users/${user.id}`, {
 
 export const deleteUser = (userId) => {
 return fetch(`http://localhost:8088/users/${userId}`, {
-    method: "DELETE"
+    method: "DELETE",
 })
 }
