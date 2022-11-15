@@ -37,7 +37,7 @@ export const SubscribedPosts = ({token}) => {
                 </div>
             </div>
             </div>
-            : "hello"
+            : "hello "
             )}
     </>
 }
