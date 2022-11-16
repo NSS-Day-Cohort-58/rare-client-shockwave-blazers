@@ -17,6 +17,15 @@ return fetch(`http://localhost:8000/posts/${id}`, {
     .then(res => res.json())
 }
 
+export const getPostByUserId = (token) => {
+return fetch(`http://localhost:8000/posts?user=${token}`, {
+    headers:{
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    }
+})
+    .then(res => res.json())
+}
+
 export const addPost = post => {
 return fetch("http://localhost:8000/posts", {
     method: "POST",
