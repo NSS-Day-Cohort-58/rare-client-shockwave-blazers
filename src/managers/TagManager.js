@@ -36,3 +36,14 @@ export const deleteTag = (tagId) => {
         }
     })
     }
+
+export const editTag = (Tag) => {
+    return fetch(`http://localhost:8000/tags/${Tag.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        },
+        body: JSON.stringify(Tag)
+    })
+    }

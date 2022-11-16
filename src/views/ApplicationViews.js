@@ -10,13 +10,16 @@ import { PostForm } from "../components/posts/PostForm"
 import { PostDetails } from "../components/posts/postDetails"
 import { CategoryList } from "../components/category/CategoryList"
 import { ViewUserDetails } from "../components/posts/viewUserDetails"
+import { CategoryEdit } from "../components/category/CategoryEdit"
+import { TagEdit } from "../components/tag/TagEdit"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
     <Routes>
       <Route path="/tags" element={<TagList />} />
-
+      <Route path="/categories/:categoryId/edit" element={<CategoryEdit />} />
+      <Route path="/tags/:TagId/edit" element={<TagEdit />} />
       <Route path="/categories" element={<CategoryList />} />
       <Route path="/postform" element={<PostForm token={token} />} />
       <Route path="/login" element={<Login setToken={setToken} />}  />
