@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
-import { getAllPosts } from "../../managers/PostManager"
+import { getAllPosts, getPostByUserId } from "../../managers/PostManager"
 import { deletePost } from "../../managers/PostManager"
 
 export const ViewCurrentUserPost = ({token}) => {
@@ -8,12 +8,12 @@ export const ViewCurrentUserPost = ({token}) => {
     const [posts, setPost] = useState([])
 
     useEffect (() => {
-        getAllPosts().then((postData) => setPost(postData))
+        getUpdatedPostsForUser()
     }, [])
 
 
     const getUpdatedPostsForUser = () => {
-    getAllPosts().then((updatedPostData) => setPost(updatedPostData))
+    getPostByUserId(token).then((postData) => setPost(postData))
     };
 
     const deletePostButton = (postid) => {
@@ -37,24 +37,14 @@ export const ViewCurrentUserPost = ({token}) => {
        })
     }
 
-    const currentPostCount = () => {
-       let currentPostNum = 0
-
-        posts.forEach((post) => {
-            if (post?.user_id === parseInt(token)) {
-                currentPostNum++
-            }
-        })
-        return currentPostNum
-    }
 
     const renderListOfUserPosts = () => {
 
         return<>
         <h1 className="title is-1 level-item">My Posts</h1>
         {
-            posts?.map(post =>
-                post?.user_id === parseInt(token)
+            posts.map(post =>
+                posts.length > 0
                 ? <div key={`post--${post.id}`}>
                     <div className="level">
                     <div className="columns level-item">
@@ -99,21 +89,14 @@ export const ViewCurrentUserPost = ({token}) => {
                 </div>
                 </div>
                 </div>
-                :""
+                :<> <h1 className="title">You have currently have No Posts.</h1>
+                <button className="button is-primary">Create A Post!</button> </>
             )
         }
             </>
     }
 
     return<>
-{
-    currentPostCount() > 0
-    ? renderListOfUserPosts()
-    : <>
-    <h1 className="title">You have currently have No Posts.</h1>
-    <button className="button is-primary">Create A Post!</button>
-    </>
-
-}
+{renderListOfUserPosts()}
             </>
 }
