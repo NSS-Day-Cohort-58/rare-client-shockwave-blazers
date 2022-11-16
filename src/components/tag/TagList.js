@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from 'react-router-dom'
-import { getTagById, getAllTags } from "../../managers/TagManager"
+import { getAllTags} from "../../managers/TagManager"
 import { Tag } from "./Tag"
 import { TagForm } from "./TagForm"
 import "./Tags.css"
 
 
 export const TagList = () => {
-
   const [tags, setTags] = useState([])
-  const navigate = useNavigate()
-
   const getTags = () => {
     return getAllTags().then(tagsFromAPI => {
       setTags(tagsFromAPI)
@@ -34,6 +30,7 @@ export const TagList = () => {
                   tags.map(tag => {
                     return <Tag tag={tag} />
                   })
+                  
                 }
               </article>
             </section>
