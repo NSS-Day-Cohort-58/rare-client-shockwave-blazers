@@ -11,9 +11,14 @@ export const TagList = () => {
   const [tags, setTags] = useState([])
   const navigate = useNavigate()
 
+  const getTags = () => {
+    return getAllTags().then(tagsFromAPI => {
+      setTags(tagsFromAPI)
+    })
+  }
 
   useEffect(() => {
-    getAllTags().then(tagsData => setTags(tagsData))
+    getTags()
   }, [])
   //Add the full list of tags and import the form function
   return (
@@ -35,7 +40,7 @@ export const TagList = () => {
             </div>
             <div className="column is-two-fifths">
               <div class="box"> <>
-                {TagForm()}
+                <TagForm  getTags={getTags}/>
               </>
               </div>
             </div>

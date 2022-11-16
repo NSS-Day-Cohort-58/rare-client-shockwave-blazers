@@ -11,9 +11,14 @@ export const CategoryList = () => {
   const [categories, setCategories] = useState([])
   const navigate = useNavigate()
 
-  
+  const getCategories = () => {
+    return getAllCategories().then(categoriesFromAPI => {
+      setCategories(categoriesFromAPI)
+    })
+  }
+
   useEffect(() => {
-    getAllCategories().then(categoriesData => setCategories(categoriesData))
+    getCategories()
   }, [])
 //Add the full list of Categories and import the form function
   return (
@@ -36,7 +41,7 @@ export const CategoryList = () => {
             
                 <div className="column is-two-fifths">
                     <div className="box"> <>
-                        {CategoryForm()}
+                        <CategoryForm  getCategories={getCategories} />
                             </>
                     </div>
                 </div>
