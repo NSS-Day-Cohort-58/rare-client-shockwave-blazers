@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { getPostById } from "../../managers/PostManager"
+import { useParams, useNavigate } from "react-router-dom"
+import { getPostById, deletePost } from "../../managers/PostManager"
 import { Link } from "react-router-dom"
 
 export const PostDetails = () => {
@@ -9,6 +9,31 @@ export const PostDetails = () => {
     useEffect(() => {
         getPostById(postId).then(postData => setPost(postData))
     }, [postId])
+
+    const navigate = useNavigate()
+
+
+    const renderDeleteButton = (postId) => {
+      return <>
+      <button className="button is-small is-danger is-focused"
+        onClick={() => {
+            if (window.confirm('Are you sure you want to delete this post?')) {
+                makeDeleteRequest(postId)
+            }
+        }}
+        >
+            <i className="fa-solid fa-trash-can"></i>
+        </button>
+      </>
+    }
+
+  const makeDeleteRequest = (postId) => {
+        deletePost(postId)
+        .then(() => {
+         navigate("/allposts")
+       })
+    }
+
 
     const displayPostDetailsCard = () => {
     return <>
@@ -38,6 +63,7 @@ export const PostDetails = () => {
         <div>
         <p class="subtitle is-6">{post.publication_date}</p>
         </div>
+        {renderDeleteButton(postId)}
       </div>
     </div>
   </div>
@@ -88,5 +114,3 @@ export const PostDetails = () => {
         </section>
     )
 }
-
-/* <Link to={`/userprofile/${post.user_id}`} >{post?.user?.first_name} | {post?.user?.last_name}</Link> */
