@@ -56,3 +56,12 @@ return fetch(`http://localhost:8000/posts/${postId}`, {
     }
 })
 }
+
+export const getSubscribedPosts = (token) => {
+    return fetch(`http://localhost:8000/posts?subscribed=${token}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(res => res.json())
+    }
