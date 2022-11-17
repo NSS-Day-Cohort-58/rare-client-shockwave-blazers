@@ -26,3 +26,23 @@ export const addCategory = category => {
         body: JSON.stringify(category)
     })
     }
+
+export const deleteCategory = (CategoryId) => {
+    return fetch(`http://localhost:8000/categories/${CategoryId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+    }
+
+export const editCategory = (Category) => {
+    return fetch(`http://localhost:8000/categories/${Category.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        },
+        body: JSON.stringify(Category)
+    })
+    }

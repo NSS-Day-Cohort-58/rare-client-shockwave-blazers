@@ -5,7 +5,7 @@ import { deleteTag, getAllTags } from "../../managers/TagManager"
 export const Tag = ({ tag }) => (
     <section className="tags">
         <div className="tag is-large">
-            <Link to={`/tags/${tag.id}`}>
+            <Link to={`/tags/${tag.id}/edit`}>
                 { tag.label }
             </Link>
             <button
