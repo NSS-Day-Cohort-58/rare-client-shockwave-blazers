@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from 'react-router-dom'
-import { getTagById, getAllTags } from "../../managers/TagManager"
+import { getAllTags} from "../../managers/TagManager"
 import { Tag } from "./Tag"
 import { TagForm } from "./TagForm"
 import "./Tags.css"
 
 
 export const TagList = () => {
-
   const [tags, setTags] = useState([])
-  const navigate = useNavigate()
-
+  const getTags = () => {
+    return getAllTags().then(tagsFromAPI => {
+      setTags(tagsFromAPI)
+    })
+  }
 
   useEffect(() => {
-    getAllTags().then(tagsData => setTags(tagsData))
+    getTags()
   }, [])
   //Add the full list of tags and import the form function
   return (
@@ -29,13 +30,14 @@ export const TagList = () => {
                   tags.map(tag => {
                     return <Tag tag={tag} />
                   })
+                  
                 }
               </article>
             </section>
             </div>
             <div className="column is-two-fifths">
               <div class="box"> <>
-                {TagForm()}
+                <TagForm  getTags={getTags}/>
               </>
               </div>
             </div>

@@ -1,12 +1,13 @@
 import { useRef } from "react"
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { addTag } from "../../managers/TagManager"
 import "./Tags.css"
 
-export const TagForm = () => {
+export const TagForm = ({ getTags }) => {
   const label = useRef(null)
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  
 
   const constructNewTag = () => {
 
@@ -14,7 +15,7 @@ export const TagForm = () => {
     addTag({
       label: label.current.value,
     })
-      .then(() => { navigate("/tags") })
+      .then(getTags)
   }
 
   return (
