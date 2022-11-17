@@ -43,13 +43,12 @@ const searchedPosts = allPosts.filter((post) => {
             authorFirstName={post.user.first_name}
             authorLastName={post.user.last_name}
             category={post.category.label}
-            tag={post.tag?.label}
             id= {post.id}
               />
             ))}
           </section>
         ) : (
-          <section className="box"> 
+          <section className="box">
             {filteredPosts.map((post) => (
             <AllPostsSingleView
             key={`post--${post.id}`}
@@ -58,7 +57,6 @@ const searchedPosts = allPosts.filter((post) => {
             authorFirstName={post.user.first_name}
             authorLastName={post.user.last_name}
             category={post.category.label}
-            tag={post.tag.label}
             id= {post.id}
             />
             ))}
@@ -76,7 +74,6 @@ return <>
     <div className="title is-5 level-item">Author</div>
     <div className="title is-5 level-item">Date</div>
     <div className="title is-5 level-item">Category</div>
-    <div className="title is-5 level-item">Tag</div>
 </div>
     {displayFilteredPosts()}
 </main>
