@@ -34,7 +34,8 @@ return fetch("http://localhost:8000/posts", {
         "Authorization": `Token ${localStorage.getItem("auth_token")}`
     },
     body: JSON.stringify(post)
-})
+    
+}).then(res => res.json())
 }
 
 export const updatePost = post => {
@@ -56,3 +57,12 @@ return fetch(`http://localhost:8000/posts/${postId}`, {
     }
 })
 }
+
+export const getSubscribedPosts = (token) => {
+    return fetch(`http://localhost:8000/posts?subscribed=${token}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(res => res.json())
+    }
