@@ -82,6 +82,7 @@ export const ViewCurrentUserPost = ({token}) => {
                         </Link>
                         {deletePostButton(post.id)}
                         </div>
+                        <div>{post.category.label}</div>
                         <time datetime>Publication Date: {post.publication_date}</time>
 
                     </div>
