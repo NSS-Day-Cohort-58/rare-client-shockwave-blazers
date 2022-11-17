@@ -1,5 +1,9 @@
+import { useNavigate } from "react-router-dom";
 // This component controls the functionality for the "Search Posts by Title" search bar.
+
+
 export const SearchAllPosts = ({setterFunction}) => {
+const navigate = useNavigate()
 return <>
 <div className="level">
     <div class="level-item">
@@ -12,7 +16,9 @@ return <>
         />
     </div>
     <div class="level-item">
-<button className="button is-primary">Create Post</button>
+<button className="button is-primary" onClick={() => {
+    navigate('/postform')
+}}>Create Post</button>
     </div>
 </div>
 </>
