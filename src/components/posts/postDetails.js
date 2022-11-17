@@ -55,7 +55,7 @@ export const PostDetails = () => {
       </div>
       <div class="media-content">
         <div>
-        <Link className="title is-4 color is-primary" to={`/userprofile/${post.user_id}`} >{post?.user?.first_name} | {post?.user?.last_name}</Link>
+        <Link className="title is-4 color is-primary" to={`/userprofile/${post.user_id}`} >{post?.user?.full_name}</Link>
         </div>
         <div>
         <p class="subtitle is-6">@{post?.user?.username}</p>

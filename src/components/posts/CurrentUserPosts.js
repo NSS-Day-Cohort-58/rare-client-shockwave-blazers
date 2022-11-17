@@ -66,7 +66,7 @@ export const ViewCurrentUserPost = ({token}) => {
                         </div>
                         <div className="media-content">
                             <div>
-                        <p className="title is-4">{post.user?.first_name} {post.user?.last_name}</p>
+                        <p className="title is-4">{post.user?.full_name}</p>
                             </div>
                             <div>
                         <p className="subtitle is-6">@{post.user.username}</p>

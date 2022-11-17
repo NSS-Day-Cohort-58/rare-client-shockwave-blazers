@@ -43,6 +43,7 @@ const searchedPosts = allPosts.filter((post) => {
             authorFirstName={post.user.first_name}
             authorLastName={post.user.last_name}
             category={post.category.label}
+            fullname={post.user.full_name}
             id= {post.id}
               />
             ))}
