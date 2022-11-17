@@ -33,7 +33,7 @@ export const PostForm = ({ token }) => {
         post_id: parsedResponse.id,
         tag_id: tag,
       };
-      fetch(`http://localhost:8000/postTags`, {
+      fetch(`http://localhost:8000/posttags`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
