@@ -12,6 +12,7 @@ import { CategoryList } from "../components/category/CategoryList"
 import { ViewUserDetails } from "../components/posts/viewUserDetails"
 import { CategoryEdit } from "../components/category/CategoryEdit"
 import { TagEdit } from "../components/tag/TagEdit"
+import { PostComments } from "../components/posts/postComments"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
@@ -29,6 +30,7 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/allposts" element={<AllPostsContainer />} />
       <Route path="/myposts" element={<ViewCurrentUserPost token={token} />} />
       <Route path="/posts/:postId" element={<PostDetails />} />
+      <Route path="/posts/:postId/comments" element={<PostComments />} />
       <Route path="/userprofile/:postUserId" element={<ViewUserDetails/>} />
 
     </Routes>
