@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { getAllPosts, getPostByUserId } from "../../managers/PostManager"
 import { deletePost } from "../../managers/PostManager"
 
@@ -45,7 +45,8 @@ export const ViewCurrentUserPost = ({token}) => {
         {
             posts.map(post =>
                 posts.length > 0
-                ? <div key={`post--${post.id}`}>
+                ? <>
+                <div key={`post--${post.id}`}>
                     <div className="level">
                     <div className="columns level-item">
                     <div className="card column is-three-quarters">
@@ -65,7 +66,7 @@ export const ViewCurrentUserPost = ({token}) => {
                         </div>
                         <div className="media-content">
                             <div>
-                        <p className="title is-4">{post.user?.first_name} {post.user?.last_name}</p>
+                        <p className="title is-4">{post.user?.full_name}</p>
                             </div>
                             <div>
                         <p className="subtitle is-6">@{post.user.username}</p>
@@ -76,9 +77,12 @@ export const ViewCurrentUserPost = ({token}) => {
                         <div className="column">
                     <div className="content">
                         <div className="title is-3">
+                        <Link to={`/posts/${post.id}`}>
                         {post.title}
+                        </Link>
                         {deletePostButton(post.id)}
                         </div>
+                        <div>{post.category.label}</div>
                         <time datetime>Publication Date: {post.publication_date}</time>
 
                     </div>
@@ -89,6 +93,11 @@ export const ViewCurrentUserPost = ({token}) => {
                 </div>
                 </div>
                 </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                </>
                 :<> <h1 className="title">You have currently have No Posts.</h1>
                 <button className="button is-primary">Create A Post!</button> </>
             )
