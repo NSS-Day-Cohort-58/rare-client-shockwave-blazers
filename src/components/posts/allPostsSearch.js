@@ -15,6 +15,9 @@ return <>
         placeholder="Search posts by title"
         />
     </div>
+    <button
+    onClick={(clickEvent) => {
+            setterFunction(clickEvent.target.value);}} > Search Posts By Title</button>
     <div class="level-item">
 <button className="button is-primary" onClick={() => {
     navigate('/postform')

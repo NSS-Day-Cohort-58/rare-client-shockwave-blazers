@@ -9,7 +9,7 @@ return fetch("http://localhost:8000/posts", {
 }
 
 export const getAllPostsByTitleSearch = (searched) => {
-return fetch(`http://localhost:8000/posts?category=${searched}`, {
+return fetch(`http://localhost:8000/posts?title=${searched}`, {
     headers:{
         "Authorization": `Token ${localStorage.getItem("auth_token")}`
     }
