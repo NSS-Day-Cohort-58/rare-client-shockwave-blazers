@@ -8,6 +8,34 @@ return fetch("http://localhost:8000/posts", {
     .then(res => res.json())
 }
 
+export const getAllPostsByTitleSearch = (searched) => {
+return fetch(`http://localhost:8000/posts?category=${searched}`, {
+    headers:{
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    }
+})
+    .then(res => res.json())
+}
+
+export const getAllPostsByCategory = (categoryId) => {
+    if (categoryId === 0) {
+        return fetch("http://localhost:8000/posts", {
+    headers:{
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    }
+})
+    .then(res => res.json())
+    }
+    else {
+        return fetch(`http://localhost:8000/posts?category=${categoryId}`, {
+            headers:{
+                "Authorization": `Token ${localStorage.getItem("auth_token")}`
+            }
+        })
+            .then(res => res.json())
+    }
+}
+
 export const getPostById = (id) => {
 return fetch(`http://localhost:8000/posts/${id}`, {
     headers:{
