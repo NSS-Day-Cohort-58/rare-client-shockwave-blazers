@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { addCategory } from "../../managers/CategoryManager"
 import "./Category.css"
 
-export const CategoryForm = () => {
+export const CategoryForm = ({ getCategories }) => {
     const label = useRef(null)
 
     const navigate = useNavigate()
@@ -14,7 +14,7 @@ export const CategoryForm = () => {
         addCategory({
             label: label.current.value,
         })
-            .then(() => { navigate("/categories") })
+            .then(getCategories)
     }
 
     return (
