@@ -1,15 +1,23 @@
 export const getAllUsers = () => {
-    return fetch("http://localhost:8088/users")
-        .then(res => res.json())
+    return fetch("http://localhost:8000/rareusers", {
+    headers:{
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    }
+})
+    .then(res => res.json())
     }
 
 export const getUserById = (id) => {
-    return fetch(`http://localhost:8088/users/${id}`)
+    return fetch(`http://localhost:8000/rareusers/${id}`, {
+    headers:{
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    }
+    })
         .then(res => res.json())
     }
     
 export const addUser = user => {
-return fetch("http://localhost:8088/users", {
+return fetch("http://localhost:8000/users", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -19,7 +27,7 @@ return fetch("http://localhost:8088/users", {
 }
 
 export const updateUser = user => {
-return fetch(`http://localhost:8088/users/${user.id}`, {
+return fetch(`http://localhost:8000/users/${user.id}`, {
     method: "PUT",
     headers: {
         "Content-Type": "application/json"
@@ -29,7 +37,7 @@ return fetch(`http://localhost:8088/users/${user.id}`, {
 }
 
 export const deleteUser = (userId) => {
-return fetch(`http://localhost:8088/users/${userId}`, {
+return fetch(`http://localhost:8000/users/${userId}`, {
     method: "DELETE",
 })
 }
