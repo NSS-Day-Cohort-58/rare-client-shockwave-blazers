@@ -47,7 +47,7 @@ const searchedPosts = allPosts.filter((post) => {
     setSearched(searchedPosts);
   }, [searchTermState]);
 
-// Send
+
   const sendTitleSearchRequestToApi = (value) => {
     getAllPostsByTitleSearch(value).then((filteredPostsArray) => {
         setAllPosts(filteredPostsArray);
@@ -98,9 +98,26 @@ const searchedPosts = allPosts.filter((post) => {
                   <button
                   onClick={() => {
                   sendCategoryFilterRequestToApi(currentCategory);}}
-                  >Filter</button>
+                  >Filter Categories</button>
                   </>
   }
+
+  const resetSearchandFilter = () => {
+    return <>
+    <button
+                  onClick={() => {
+                    getAllPosts()
+      .then((allPostsArray) => {
+        setAllPosts(allPostsArray);
+      }).then(() => {
+        setSearchedTitle("")
+      })
+      .then(setSearchedTitle(""));
+                  ;}}
+                  >Reset</button>
+    </>
+  }
+
 
   const sendCategoryFilterRequestToApi = (categoryId) => {
     getAllPostsByCategory(categoryId).then((filteredPostsArray) => {
@@ -153,6 +170,7 @@ return <>
   <div className="level">
   {renderSearchBar()}
   {renderCategoryDropDown()}
+  {resetSearchandFilter()}
   </div>
   <div className="level">
     <div className="title is-5 level-item">Title</div>
