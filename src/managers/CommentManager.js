@@ -24,3 +24,13 @@ export const deleteComment = (commentId) => {
         }
     })
     }
+
+
+export const getCommentsByPostId = (postId) => {
+    return fetch(`http://localhost:8000/comments?posts=${postId}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(res => res.json())
+    }
