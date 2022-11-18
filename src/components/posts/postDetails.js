@@ -130,7 +130,17 @@ export const PostDetails = () => {
                   </button>
                 </div>
               </div>
-              <div class="content">{post.content}</div>
+              <div className="column is-one-third">
+                <div className="title is-5 level-item">Reactions</div>
+                <div className="box">{post?.reaction?.emoji}</div>
+                <button className="button is-primary">
+                  <Link to={`/posts/${postId}/comments`}>View Post Comments</Link></button>
+                  <button className="button is-primary">
+                  <Link to={`/posts/${postId}/newcomment`}>Make a Comment</Link></button>
+              </div>
+            </div>
+            <div class="content">
+              {post.content}
             </div>
           </div>
           <div className="column is-one-fifth box">
