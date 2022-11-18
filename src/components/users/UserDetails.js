@@ -1,19 +1,25 @@
 import { useEffect } from "react"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
+import { addSubscription, getAllSubscriptions } from "../../managers/SubscriptionManager"
 import { getUserById } from "../../managers/UserManager"
 
 
 
 
-export const UserDetails = () => {
+export const UserDetails = ({ token }) => {
 
     const [user, setUser] = useState({})
+    const [subscriptions, setSubscriptions] = useState([])
     const { userId } = useParams()
 
     useEffect(() => {
         getUserById(userId).then((userData) => setUser(userData))
     }, [userId])
+
+    useEffect(() => {
+        getAllSubscriptions().then((subscriptionsData) => setSubscriptions(subscriptionsData))
+    }, [])
 
     return <>
         <div className="level">
@@ -41,6 +47,25 @@ export const UserDetails = () => {
                                         </p>
                                         <p className="subtitle is-6">Email: {user?.user?.email}</p>
                                         <p className="subtitle is-6">Date Joined: {user?.user?.date_joined}</p>
+                                    </div>
+                                    <div>
+                                        {
+                                            subscriptions?.find(subscription => subscription.follower.tokenNumber === token)
+                                                ? <button>
+                                                    Unsubscribe
+                                                </button>
+                                                : <button
+                                                onClick={
+                                                    () => {
+                                                        addSubscription({
+                                                            followerId: token,
+                                                            authorId: user.id
+                                                        })
+                                                    }
+                                                }>
+                                                    Subscribe
+                                                </button>
+                                        }
                                     </div>
                                 </div>
                             </div>
