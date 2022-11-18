@@ -34,3 +34,14 @@ export const getCommentsByPostId = (postId) => {
     })
         .then(res => res.json())
     }
+
+export const editComment = (comment) => {
+    return fetch(`http://localhost:8000/comments/${comment.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        },
+        body: JSON.stringify(comment)
+    })
+    }

@@ -6,8 +6,8 @@ import { Link } from "react-router-dom"
 
 
 
-export const PostComments = () => {
-
+export const PostComments = ({token}) => {
+  const userId = token
   const [post, setPost] = useState([])
   const [comments, setPostComments] = useState([])
   const { postId } = useParams()
@@ -21,7 +21,7 @@ export const PostComments = () => {
   }, [postId])
 
 
-
+ 
   return <>
     <section>
       <h2>{post.title}</h2>
@@ -29,11 +29,21 @@ export const PostComments = () => {
         {
           comments.map(comment =>
             <article key={`comment--${comment.id}`}>
-
               <div>You have a comment: {comment.content}</div>
               <div>You have a comment: {comment.created_on}</div>
               <div>You have a comment: {comment.author.username}</div>
+              <>
+              {
+                userId === comment.author.tokenNumber
+                ? <>
+                  <button className="button is-primary">
+                  <Link to={`/comment/${comment.id}/editcomment`}>Edit your comment</Link></button>
 
+                  <button >Delete your comment</button>
+                  </>
+                :"Bitch No it doesn't."
+              }
+              </>
 
 
             </article>
