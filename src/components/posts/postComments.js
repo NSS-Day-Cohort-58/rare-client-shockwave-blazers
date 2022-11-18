@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { getCommentsByPostId } from "../../managers/CommentManager"
+import { useNavigate, useParams } from "react-router-dom"
+import { deleteComment, getCommentsByPostId } from "../../managers/CommentManager"
 import { getPostById } from "../../managers/PostManager"
 import { Link } from "react-router-dom"
 
@@ -11,6 +11,7 @@ export const PostComments = ({token}) => {
   const [post, setPost] = useState([])
   const [comments, setPostComments] = useState([])
   const { postId } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getPostById(postId).then(postData => setPost(postData))
@@ -21,6 +22,26 @@ export const PostComments = ({token}) => {
   }, [postId])
 
 
+  const renderDeleteButton = (commentId) => {
+    return <>
+      <button className="button is-small is-danger is-focused"
+        onClick={() => {
+          if (window.confirm('Are you sure you want to delete this comment?')) {
+            makeDeleteRequest(commentId)
+          }
+        }}
+      >
+        <i className="fa-solid fa-trash-can"></i>
+      </button>
+    </>
+  }
+
+  const makeDeleteRequest = (commentId) => {
+    deleteComment(commentId)
+      .then(() => {
+        window.location.reload(false)
+      })
+  }
  
   return <>
     <section>
@@ -39,7 +60,7 @@ export const PostComments = ({token}) => {
                   <button className="button is-primary">
                   <Link to={`/comment/${comment.id}/editcomment`}>Edit your comment</Link></button>
 
-                  <button >Delete your comment</button>
+                  {renderDeleteButton(comment.id)}
                   </>
                 :"Bitch No it doesn't."
               }

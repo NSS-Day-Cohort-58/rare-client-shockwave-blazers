@@ -29,7 +29,9 @@ export const MakeComment = ({token}) => {
         copy[domEvent.target.id] = domEvent.target.value;
         setNewComment(copy);
       };
-  
+
+      
+
     return <>
       <section>
         <h2>{post.title}</h2>

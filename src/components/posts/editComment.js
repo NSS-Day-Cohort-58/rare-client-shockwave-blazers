@@ -1,68 +1,63 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { addComment, getCommentById } from "../../managers/CommentManager"
-import { getPostById } from "../../managers/PostManager"
-import { Link } from "react-router-dom"
+import { editCurrentComment, getCommentById } from "../../managers/CommentManager"
 
 
-export const EditComment = ({token, comment}) => {
+
+export const EditComment = ({ token }) => {
     const userId = parseInt(token)
     const navigate = useNavigate()
-    const [comment, setComment] = useState([])
     const { commentId } = useParams()
     const [updatedComment, updateComment] = useState({
-        post: postId,
+        post: 0,
         author: userId,
         content: "",
         created_on: ""
-        
-      });
-  
-    useEffect(() => {
-      getCommentById(commentId).then(commentData => setComment(commentData))
-    }, [commentId])
-  
 
-  
+    });
+
+    useEffect(() => {
+        getCommentById(commentId).then(commentData => updateComment(commentData))
+    }, [commentId])
+
+
+
     const changePostState = (domEvent) => {
-        const copy = { ...post };
+        const copy = { ...updatedComment };
         copy[domEvent.target.id] = domEvent.target.value;
-        setNewComment(copy);
-      };
-  
+        updateComment(copy);
+    };
+
     return <>
-      <section>
-        <h2>{post.title}</h2>
-        <article>
-        <input
-              className="input is-success"
-              type="text"
-              id="content"
-              required
-              autoFocus
-              placeholder="Enter your commentary"
-              value={newComment.content}
-              onChange={changePostState}
-            />
-            <button type="submit"
-              onClick={(evt) => {
-                evt.preventDefault();
-                const newCommentToSendToAPI = {
-                    post: postId,
-                    author: userId,
-                    content: newComment.content,
-                    created_on: ""                             
-                };
-                addComment(newCommentToSendToAPI).then( navigate(`/posts/${postId}/comments`));
-              }}
-              className="btn btn-primary">
-                Save this comment
-            </button>
-          
-          <Link to={`/posts/${postId}/`}>
-            Go back to the Post
-          </Link>
-        </article>
-      </section>
+        <section>
+
+            <article>
+                <input
+                    className="input is-success"
+                    type="text"
+                    id="content"
+                    required
+                    autoFocus
+                    placeholder={updatedComment.content}
+                    value={updatedComment.content}
+                    onChange={changePostState}
+                />
+                <button type="submit"
+                    onClick={(evt) => {
+                        evt.preventDefault();
+                        const EditedCommentToSendToAPI = {
+                            id: commentId,
+                            post: updatedComment.post,
+                            author: userId,
+                            content: updatedComment.content,
+                            created_on: updatedComment.created_on
+                        };
+                        editCurrentComment(EditedCommentToSendToAPI).then(() => navigate(`/posts/${updatedComment.post}/comments`));
+                    }}
+                    className="btn btn-primary">
+                    Save this comment's edit
+                </button>
+            </article>
+        </section>
     </>
-  }
+}

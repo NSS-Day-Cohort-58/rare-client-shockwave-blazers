@@ -35,7 +35,7 @@ export const getCommentsByPostId = (postId) => {
         .then(res => res.json())
     }
 
-export const editComment = (comment) => {
+export const editCurrentComment = (comment) => {
     return fetch(`http://localhost:8000/comments/${comment.id}`, {
         method: "PUT",
         headers: {
@@ -44,4 +44,13 @@ export const editComment = (comment) => {
         },
         body: JSON.stringify(comment)
     })
+    }
+
+export const getCommentById = (id) => {
+    return fetch(`http://localhost:8000/comments/${id}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(res => res.json())
     }
