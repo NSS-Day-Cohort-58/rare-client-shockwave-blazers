@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   getPostById,
+  updatePost,
   deletePost,
   getAllReactions,
 } from "../../managers/PostManager";
@@ -13,8 +14,7 @@ export const PostDetails = () => {
   const { postId } = useParams();
   const [post, setPost] = useState([]);
   const [reactions, setReactions] = useState([]);
-  const [chosenReaction, setChosenReaction] = useState(new Set());
-
+  
   useEffect(() => {
     getPostById(postId).then((postData) => setPost(postData));
   }, [postId]);
@@ -22,23 +22,6 @@ export const PostDetails = () => {
   useEffect(() => {
     getAllReactions().then((ReactionsData) => setReactions(ReactionsData));
   }, []);
-
-  const ReactToPost = (parsedResponse) => {
-    chosenReaction.forEach((reaction) => {
-      const ReactionToAPI = {
-        post_id: parsedResponse.id,
-        reaction_id: reaction,
-      };
-      fetch(`http://localhost:8000/postreactions`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Token ${localStorage.getItem("auth_token")}`,
-        },
-        body: JSON.stringify(ReactionToAPI),
-      }).then((response) => response.json());
-    });
-  };
 
   const renderDeleteButton = (postId) => {
     return (
@@ -116,18 +99,21 @@ export const PostDetails = () => {
                           <>
                             <button
                               className="button is-small is-focused"
-                              type='submit'
-                              value={reaction.emoji}
+                              type="submit"
+                              value={reaction.id}
                               onClick={(evt) => {
                                 evt.preventDefault();
-                                const copy = new Set(chosenReaction);
-                                if (copy.has(reaction.id)) {
-                                  copy.delete(reaction.id);
-                                } else {
-                                  copy.add(reaction.id);
-                                }
-                                setChosenReaction(copy);
-                                
+                                fetch(`http://localhost:8000/postreactions`, {
+                                  method: "POST",
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Token ${localStorage.getItem("auth_token")}`,
+                                  },
+                                  body: JSON.stringify({
+                                    post_id: postId,
+                                    reaction_id: reaction.id
+                                  })
+                                })
                               }}
                             >
                               {reaction.emoji}
@@ -164,7 +150,6 @@ export const PostDetails = () => {
       </>
     );
   };
-
   return (
     <section>
       <div>
@@ -180,3 +165,4 @@ export const PostDetails = () => {
     </section>
   );
 };
+
