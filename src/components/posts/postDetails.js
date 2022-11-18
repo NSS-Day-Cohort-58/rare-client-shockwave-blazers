@@ -4,8 +4,8 @@ import { getPostById, deletePost } from "../../managers/PostManager"
 import { Link } from "react-router-dom"
 import { PostComments } from "./postComments"
 
-export const PostDetails = () => {
-  const [post, setPost] = useState([])
+export const PostDetails = ({token}) => {
+  const [post, setPost] = useState({})
   const { postId } = useParams()
 
   useEffect(() => {
@@ -17,7 +17,9 @@ export const PostDetails = () => {
 
   const renderDeleteButton = (postId) => {
     return <>
-      <button className="button is-small is-danger is-focused"
+    {
+      token === post?.user?.tokenNumber
+      ? <button className="button is-small is-danger is-focused"
         onClick={() => {
           if (window.confirm('Are you sure you want to delete this post?')) {
             makeDeleteRequest(postId)
@@ -26,6 +28,8 @@ export const PostDetails = () => {
       >
         <i className="fa-solid fa-trash-can"></i>
       </button>
+      : ""
+    }
     </>
   }
 
