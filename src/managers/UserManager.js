@@ -1,10 +1,18 @@
 export const getAllUsers = () => {
-    return fetch("http://localhost:8000/users")
-        .then(res => res.json())
+    return fetch("http://localhost:8000/rareusers", {
+    headers:{
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    }
+})
+    .then(res => res.json())
     }
 
 export const getUserById = (id) => {
-    return fetch(`http://localhost:8000/users/${id}`)
+    return fetch(`http://localhost:8000/rareusers/${id}`, {
+    headers:{
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+    }
+    })
         .then(res => res.json())
     }
 
