@@ -14,6 +14,8 @@ import { UpdatePostForm } from "../components/posts/PostEdit"
 import { CategoryEdit } from "../components/category/CategoryEdit"
 import { TagEdit } from "../components/tag/TagEdit"
 import { PostComments } from "../components/posts/postComments"
+import { UserList } from "../components/users/UserList"
+import { UserDetails } from "../components/users/UserDetails"
 import { MakeComment } from "../components/posts/makeComment"
 import { EditComment } from "../components/posts/editComment"
 
@@ -38,6 +40,8 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/comment/:commentId/editcomment" element={<EditComment token={token} comment={comment}/>} />
       <Route path="/userprofile/:postUserId" element={<ViewUserDetails/>} />
       <Route path="/posts/:postId/edit" element={<UpdatePostForm token={token} />} />
+      <Route path="/users" element={<UserList token={token} />} />
+      <Route path="/users/:userId/details" element={<UserDetails token={token} />} />
 
     </Routes>
   </>

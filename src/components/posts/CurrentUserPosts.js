@@ -28,7 +28,7 @@ export const ViewCurrentUserPost = ({token}) => {
                 makeDeleteRequest(postid)
             }
           }}
-        >🗑
+        >
           <i className="fa-solid fa-trash-can"></i>
         </button>
       </>
