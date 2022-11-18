@@ -74,6 +74,8 @@ export const PostDetails = () => {
                 <div className="box">{post?.reaction?.emoji}</div>
                 <button className="button is-primary">
                   <Link to={`/posts/${postId}/comments`}>View Post Comments</Link></button>
+                  <button className="button is-primary">
+                  <Link to={`/posts/${postId}/newcomment`}>Make a Comment</Link></button>
               </div>
             </div>
             <div class="content">

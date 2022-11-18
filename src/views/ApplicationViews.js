@@ -9,13 +9,14 @@ import { ViewCurrentUserPost } from "../components/posts/CurrentUserPosts"
 import { PostForm } from "../components/posts/PostForm"
 import { PostDetails } from "../components/posts/postDetails"
 import { CategoryList } from "../components/category/CategoryList"
-import { ViewUserDetails } from "../components/posts/viewUserDetails"
 import { UpdatePostForm } from "../components/posts/PostEdit"
 import { CategoryEdit } from "../components/category/CategoryEdit"
 import { TagEdit } from "../components/tag/TagEdit"
 import { PostComments } from "../components/posts/postComments"
 import { UserList } from "../components/users/UserList"
 import { UserDetails } from "../components/users/UserDetails"
+import { MakeComment } from "../components/posts/makeComment"
+import { EditComment } from "../components/posts/editComment"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
@@ -33,8 +34,9 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/allposts" element={<AllPostsContainer />} />
       <Route path="/myposts" element={<ViewCurrentUserPost token={token} />} />
       <Route path="/posts/:postId" element={<PostDetails />} />
-      <Route path="/posts/:postId/comments" element={<PostComments />} />
-      <Route path="/userprofile/:postUserId" element={<ViewUserDetails/>} />
+      <Route path="/posts/:postId/comments" element={<PostComments token={token}/>} />
+      <Route path="/posts/:postId/newComment" element={<MakeComment token={token}/>} />
+      <Route path="/comment/:commentId/editcomment" element={<EditComment token={token}/>} />
       <Route path="/posts/:postId/edit" element={<UpdatePostForm token={token} />} />
       <Route path="/users" element={<UserList token={token} />} />
       <Route path="/users/:userId/details" element={<UserDetails token={token} />} />
