@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
-import { getAllPosts } from "../../managers/PostManager"
+import { Link } from 'react-router-dom'
+import { getAllPosts, getPostByUserId } from "../../managers/PostManager"
 import { deletePost } from "../../managers/PostManager"
 
 export const ViewCurrentUserPost = ({token}) => {
+  
+  const [posts, setPost] = useState([]);
 
-    const [posts, setPost] = useState([])
+  useEffect(() => {
+    getAllPosts().then((postData) => setPost(postData));
+  }, []);
 
     useEffect (() => {
-        getAllPosts().then((postData) => setPost(postData))
+        getUpdatedPostsForUser()
     }, [])
 
 
     const getUpdatedPostsForUser = () => {
-    getAllPosts().then((updatedPostData) => setPost(updatedPostData))
+    getPostByUserId(token).then((postData) => setPost(postData))
     };
 
     const deletePostButton = (postid) => {
@@ -23,46 +27,40 @@ export const ViewCurrentUserPost = ({token}) => {
             if (window.confirm('Are you sure you want to delete this post?')) {
                 makeDeleteRequest(postid)
             }
-        }}
+          }}
         >
-            <i className="fa-solid fa-trash-can"></i>
+          <i className="fa-solid fa-trash-can"></i>
         </button>
-        </>
-    }
+      </>
+    
+  };
 
-    const makeDeleteRequest = (postid) => {
-        deletePost(postid)
-        .then(() => {
-         getUpdatedPostsForUser();
-       })
-    }
+  const makeDeleteRequest = (postid) => {
+    deletePost(postid).then(() => {
+      getUpdatedPostsForUser();
+    });
+  };
 
-    const currentPostCount = () => {
-       let currentPostNum = 0
 
-        posts.forEach((post) => {
-            if (post?.user_id === parseInt(token)) {
-                currentPostNum++
-            }
-        })
-        return currentPostNum
-    }
-
-    const renderListOfUserPosts = () => {
-
-        return<>
+  const renderListOfUserPosts = () => {
+    return (
+      <>
         <h1 className="title is-1 level-item">My Posts</h1>
         {
-            posts?.map(post =>
-                post?.user_id === parseInt(token)
-                ? <div key={`post--${post.id}`}>
+            posts.map(post =>
+                posts.length > 0
+                ? <>
+                <div key={`post--${post.id}`}>
                     <div className="level">
                     <div className="columns level-item">
                     <div className="card column is-three-quarters">
                     <div className="card-image">
-                    <figure className="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" />
-                    </figure>
+                      <figure className="image is-4by3">
+                        <img
+                          src="https://bulma.io/images/placeholders/1280x960.png"
+                          alt=""
+                        />
+                      </figure>
                     </div>
                     <div className="card-content">
                         <div className="columns">
@@ -70,12 +68,12 @@ export const ViewCurrentUserPost = ({token}) => {
                                 <div className="media">
                         <div className="media-left">
                         <figure className="image is-48x48">
-                            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+                            <img src="https://bulma.io/images/placeholders/96x96.png" alt="" />
                         </figure>
                         </div>
                         <div className="media-content">
                             <div>
-                        <p className="title is-4">{post.user?.first_name} {post.user?.last_name}</p>
+                        <p className="title is-4">{post.user?.full_name}</p>
                             </div>
                             <div>
                         <p className="subtitle is-6">@{post.user.username}</p>
@@ -86,9 +84,12 @@ export const ViewCurrentUserPost = ({token}) => {
                         <div className="column">
                     <div className="content">
                         <div className="title is-3">
+                        <Link to={`/posts/${post.id}`}>
                         {post.title}
+                        </Link>
                         {deletePostButton(post.id)}
                         </div>
+                        <div>{post.category.label}</div>
                         <time datetime>Publication Date: {post.publication_date}</time>
 
                     </div>
@@ -99,21 +100,19 @@ export const ViewCurrentUserPost = ({token}) => {
                 </div>
                 </div>
                 </div>
-                :""
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                </>
+                :<> <h1 className="title">You have currently have No Posts.</h1>
+                <button className="button is-primary">Create A Post!</button> </>
             )
         }
             </>
-    }
+    )}
 
     return<>
-{
-    currentPostCount() > 0
-    ? renderListOfUserPosts()
-    : <>
-    <h1 className="title">You have currently have No Posts.</h1>
-    <button className="button is-primary">Create A Post!</button>
-    </>
-
-}
+{renderListOfUserPosts()}
             </>
 }
