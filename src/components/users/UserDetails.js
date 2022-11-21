@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
-import { addSubscription, getAllSubscriptions } from "../../managers/SubscriptionManager"
+import { addSubscription, deleteSubscription, endSubscription, getAllSubscriptions } from "../../managers/SubscriptionManager"
 import { getUserById } from "../../managers/UserManager"
 
 
@@ -17,9 +17,60 @@ export const UserDetails = ({ token }) => {
         getUserById(userId).then((userData) => setUser(userData))
     }, [userId])
 
+    const refreshSubscriptions = () => {
+        getAllSubscriptions().then((subscriptionsFromAPI) => {
+            setSubscriptions(subscriptionsFromAPI)
+        })
+    }
+
     useEffect(() => {
-        getAllSubscriptions().then((subscriptionsData) => setSubscriptions(subscriptionsData))
+        refreshSubscriptions()
     }, [])
+
+    const foundSub = subscriptions?.find(subscription => subscription.follower.tokenNumber === token && subscription.author === user.id)
+
+    const unsubscribeButton = () => {
+        return <>
+            <button
+                onClick={
+                    () => {
+                        deleteSubscription(foundSub.id).then(() => refreshSubscriptions())
+                    }}>
+                Unsubscribe
+            </button>
+
+        </>
+    }
+
+    const subscribeButton = () => {
+        return <>
+            <button
+                onClick={
+                    () => {
+                        addSubscription({
+                            follower: token,
+                            author: user.id,
+                            created_on: "",
+                            ended_on: null
+                        })
+                            .then(() => refreshSubscriptions())
+                    }
+                }>
+                Subscribe
+            </button>
+        </>
+
+    }
+
+
+    const subscribedOrUnsubscribedButton = () => {
+            if (foundSub) {
+                return unsubscribeButton()
+            }
+            else if (!foundSub) {
+                return subscribeButton()
+            }
+    }
 
     return <>
         <div className="level">
@@ -49,23 +100,7 @@ export const UserDetails = ({ token }) => {
                                         <p className="subtitle is-6">Date Joined: {user?.user?.date_joined}</p>
                                     </div>
                                     <div>
-                                        {
-                                            subscriptions?.find(subscription => subscription.follower.tokenNumber === token)
-                                                ? <button>
-                                                    Unsubscribe
-                                                </button>
-                                                : <button
-                                                onClick={
-                                                    () => {
-                                                        addSubscription({
-                                                            followerId: token,
-                                                            authorId: user.id
-                                                        })
-                                                    }
-                                                }>
-                                                    Subscribe
-                                                </button>
-                                        }
+                                        {subscribedOrUnsubscribedButton()}
                                     </div>
                                 </div>
                             </div>
