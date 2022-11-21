@@ -14,6 +14,7 @@ export const SubscribedPosts = ({token}) => {
 
     }, [])
 
+
     return <>
         <h1 className="title is-1 level-item">Subscribed</h1>
         {

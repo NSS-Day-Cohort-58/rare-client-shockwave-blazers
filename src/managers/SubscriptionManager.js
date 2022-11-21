@@ -16,6 +16,16 @@ export const addSubscription = subscription => {
         body: JSON.stringify(subscription)
     })
     }
+export const endSubscription = subscription => {
+    return fetch(`http://localhost:8000/subscriptions/${subscription.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        },
+        body: JSON.stringify(subscription)
+    })
+    }
 export const deleteSubscription = (subscriptionId) => {
     return fetch(`http://localhost:8000/subscriptions/${subscriptionId}`, {
         method: "DELETE",
